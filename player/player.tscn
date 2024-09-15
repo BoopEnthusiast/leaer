@@ -1,22 +1,31 @@
-[gd_scene load_steps=4 format=3 uid="uid://cp1hyqfhury3v"]
+[gd_scene load_steps=5 format=3 uid="uid://cp1hyqfhury3v"]
+
+[ext_resource type="Script" path="res://UltimatePlatformerController.gd" id="1_67nr4"]
+[ext_resource type="Texture2D" uid="uid://00gci7mn4mnk" path="res://player/player_sprite.tres" id="2_ata47"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dpfxv"]
 radius = 32.0
 height = 96.0
 
-[sub_resource type="Gradient" id="Gradient_tk2fd"]
-interpolation_color_space = 2
-colors = PackedColorArray(0.984314, 0.85098, 0.886275, 1, 0.784314, 0.92549, 0.894118, 1)
+[sub_resource type="SpriteFrames" id="SpriteFrames_bkn1f"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ata47")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_dhexu"]
-gradient = SubResource("Gradient_tk2fd")
-fill_to = Vector2(0.847826, 0.76087)
-
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("PlayerSprite", "PlayerCollider")]
+script = ExtResource("1_67nr4")
+PlayerSprite = NodePath("Sprite")
+PlayerCollider = NodePath("Collider")
 
 [node name="Collider" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_dpfxv")
 
-[node name="Sprite" type="Sprite2D" parent="."]
-scale = Vector2(1, 1.53125)
-texture = SubResource("GradientTexture2D_dhexu")
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+scale = Vector2(1, 1.5)
+sprite_frames = SubResource("SpriteFrames_bkn1f")
